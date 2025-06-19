@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "name": "React Developer Tools",
+    "category": "frontend",
+    "description": "Inspect the React component tree in your browser.",
+    "link": "https://react.dev/tools",
+    "tags": ["react", "debugging", "extension"]
+  },
+  {
+    "id": 2,
+    "name": "Postman",
+    "category": "api",
+    "description": "Build, test, and document APIs quickly.",
+    "link": "https://www.postman.com/",
+    "tags": ["api", "testing", "collaboration"]
+  },
+  {
+    "id": 3,
+    "name": "ESLint",
+    "category": "tooling",
+    "description": "Find and fix problems in your JavaScript code.",
+    "link": "https://eslint.org/",
+    "tags": ["linting", "javascript"]
+  },
+  {
+    "id": 4,
+    "name": "Prettier",
+    "category": "tooling",
+    "description": "An opinionated code formatter.",
+    "link": "https://prettier.io/",
+    "tags": ["formatting", "style"]
+  },
+  {
+    "id": 5,
+    "name": "Chrome DevTools",
+    "category": "frontend",
+    "description": "Built-in Chrome tools for debugging and performance.",
+    "link": "https://developer.chrome.com/docs/devtools/",
+    "tags": ["browser", "debugging"]
+  },
+  {
+    "id": 6,
+    "name": "Visual Studio Code",
+    "category": "editor",
+    "description": "Powerful open-source code editor from Microsoft.",
+    "link": "https://code.visualstudio.com/",
+    "tags": ["editor", "development"]
+  },
+  {
+    "id": 7,
+    "name": "GitHub Copilot",
+    "category": "ai",
+    "description": "AI-powered code suggestions inside your editor.",
+    "link": "https://github.com/features/copilot",
+    "tags": ["ai", "productivity"]
+  },
+  {
+    "id": 8,
+    "name": "Figma",
+    "category": "design",
+    "description": "Collaborative interface design tool.",
+    "link": "https://www.figma.com/",
+    "tags": ["design", "ui", "ux"]
+  },
+  {
+    "id": 9,
+    "name": "Webpack",
+    "category": "bundler",
+    "description": "A static module bundler for JavaScript applications.",
+    "link": "https://webpack.js.org/",
+    "tags": ["bundler", "javascript"]
+  },
+  {
+    "id": 10,
+    "name": "Vite",
+    "category": "bundler",
+    "description": "Next-generation frontend tooling and dev server.",
+    "link": "https://vitejs.dev/",
+    "tags": ["vite", "build", "bundler"]
+  },
+  {
+    "id": 11,
+    "name": "Jest",
+    "category": "testing",
+    "description": "Delightful JavaScript testing framework by Facebook.",
+    "link": "https://jestjs.io/",
+    "tags": ["testing", "javascript"]
+  },
+  {
+    "id": 12,
+    "name": "Cypress",
+    "category": "testing",
+    "description": "End-to-end testing framework for modern web.",
+    "link": "https://www.cypress.io/",
+    "tags": ["e2e", "testing"]
+  },
+  {
+    "id": 13,
+    "name": "Netlify",
+    "category": "hosting",
+    "description": "Deploy modern websites with serverless functions.",
+    "link": "https://www.netlify.com/",
+    "tags": ["deployment", "hosting"]
+  },
+  {
+    "id": 14,
+    "name": "Vercel",
+    "category": "hosting",
+    "description": "Fast static site deployment platform.",
+    "link": "https://vercel.com/",
+    "tags": ["hosting", "nextjs"]
+  },
+  {
+    "id": 15,
+    "name": "Docker",
+    "category": "devops",
+    "description": "Platform for containerized application development.",
+    "link": "https://www.docker.com/",
+    "tags": ["containers", "devops"]
+  },
+  {
+    "id": 16,
+    "name": "Swagger",
+    "category": "api",
+    "description": "Design and document APIs with OpenAPI specification.",
+    "link": "https://swagger.io/",
+    "tags": ["api", "docs"]
+  },
+  {
+    "id": 17,
+    "name": "Insomnia",
+    "category": "api",
+    "description": "API design platform with GraphQL and REST support.",
+    "link": "https://insomnia.rest/",
+    "tags": ["api", "graphql"]
+  },
+  {
+    "id": 18,
+    "name": "MongoDB Compass",
+    "category": "database",
+    "description": "GUI for MongoDB databases.",
+    "link": "https://www.mongodb.com/products/compass",
+    "tags": ["database", "mongodb"]
+  },
+  {
+    "id": 19,
+    "name": "Firebase",
+    "category": "backend",
+    "description": "Backend platform by Google for building apps faster.",
+    "link": "https://firebase.google.com/",
+    "tags": ["backend", "auth", "storage"]
+  },
+  {
+    "id": 20,
+    "name": "Tailwind CSS",
+    "category": "frontend",
+    "description": "A utility-first CSS framework.",
+    "link": "https://tailwindcss.com/",
+    "tags": ["css", "frontend"]
+  }
+]
