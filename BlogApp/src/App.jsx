@@ -1,18 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import authService from './appwrite/auth'
+import { login, logout } from './store/authSlice'
+import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [loading, setLoading] = useState(true)
+  const dispatch = useDispatch()
 
-  console.log(import.meta.env.VITE_APPWRITER_URL)
 
-  return (
-    <>
-      <h1 className='bg-black text-white min-h-screen flex items-center justify-center text-6xl'>Test</h1>
-    </>
-  )
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await authService.getCurrentUser()
+        if (userData) {
+          dispatch(login({ userData }))
+        } else {
+          dispatch(logout())
+        }
+      } catch (error) {
+        // console.log("Guest account");
+        console.error("Error fetching user:", error);
+        dispatch(logout());
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchUser();
+  }, [])
+
+  return !loading ? (
+    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+      <div className='w-full block'>
+        <Header />
+        <main>
+          {/* <Outlet/> */}
+        </main>
+        <Footer />
+      </div>
+    </div>
+  ) : null
 }
 
 export default App
