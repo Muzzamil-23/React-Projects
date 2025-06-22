@@ -69,9 +69,10 @@ const Login = () => {
                             placeholder="Enter your password"
                             {...register("password", {
                                 required: "Password is required",
-                                validate: (value) =>
-                                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(value) ||
-                                    "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character",
+                                validate: {
+                                    matchPattern: (value) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(value) ||
+                                        "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character",
+                                }
                             })}
                         />
                         <Button type="submit" className="w-full">Sign In</Button>
