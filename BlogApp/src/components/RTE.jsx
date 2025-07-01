@@ -12,16 +12,18 @@ const RTE = ({ name, control, label, defaultValue = "" }) => {
                 control={control}
                 render={({ field: { onChange } }) => (
                     <Editor
+                        apiKey='qfjbenjn56hkx88vl8kho2wu02arr0sj0eilnwq9hfv1h0fo'
                         initialValue={defaultValue}
                         init={{
                             initialValue: defaultValue,
-                            height: 500,
+                            // height: 500,
                             menubar: true,
                             plugins: [
-                                'accordion advlist anchor autolink autoresize autosave bbcode charmap code codesample',
-                                'directionality emoticons fullscreen help hr image imagetools importcss insertdatetime',
-                                'link lists media nonbreaking noneditable pagebreak preview print quickbars save',
-                                'searchreplace spellchecker tabfocus table template textpattern toc visualblocks visualchars wordcount'
+                                'advlist', 'anchor', 'autolink', 'autoresize', 'charmap', 'code', 'codesample',
+                                'directionality', 'emoticons', 'fullscreen', 'help', 'image',
+                                'importcss', 'insertdatetime', 'link', 'lists', 'media', 'nonbreaking', 'pagebreak',
+                                'preview', 'quickbars', 'save', 'searchreplace', 'table', 'visualblocks',
+                                'visualchars', 'wordcount'
                             ],
 
                             toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | ' +

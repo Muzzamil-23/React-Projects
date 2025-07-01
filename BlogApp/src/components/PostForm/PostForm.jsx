@@ -20,7 +20,7 @@ const PostForm = ({ post }) => {
 
     const submit = async (data) => {
         if (post) {
-            const file = data.image[0] ? appwriteService.uploadFile(data.image[0]) : null
+            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
 
             if (file) {
                 appwriteService.deleteFile(post.featuredImage)
@@ -85,37 +85,43 @@ const PostForm = ({ post }) => {
                     label="Slug :"
                     placeholder="Slug"
                     className="mb-4"
-                    {...register("slug", { required: true })}
-                    onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), {shouldValidate: true})
-                    }}
+                    // {...register("slug", { required: true })}
+                    // onInput={(e) => {
+                    //     setValue("slug", slugTransform(e.currentTarget.value), {shouldValidate: true})
+                    // }}
+                    {...register("slug", {
+                        required: true,
+                        onChange: (e) => {
+                            setValue("slug", slugTransform(e.target.value), { shouldValidate: true });
+                        }
+                    })}
                 />
-                <RTE label="Content : " name="content" control={control} defaultValue={getValues("content")}/>
+                <RTE label="Content : " name="content" control={control} defaultValue={getValues("content")} />
             </div>
             <div className='w-1/3 px-2'>
-                    <Input
-                        label="Featured Image :"
-                        type="file"
-                        className="mb-4"
-                        accept="image/png, image/jpg, image/jpeg, image/gif"
-                        {...register("image", {
-                            required: !post
-                        })}
-                    />
-                    {post && (
-                        <div className='w-full mb-4'>
-                            <img src={appwriteService.getFilePreview(post.featuredImage)} alt={post.title} className='rounded-lg' />
-                        </div>
-                    )}
-                    <Select
-                        options={["active", "inactive"]}
-                        label="Status"
-                        className="mb-4"
-                        {...register("status", {required: true})}
-                    />
-                    <Button type='submit' bgColor={post ? "bg-green-500" : undefined} className='w-full'>
+                <Input
+                    label="Featured Image :"
+                    type="file"
+                    className="mb-4"
+                    accept="image/png, image/jpg, image/jpeg, image/gif"
+                    {...register("image", {
+                        required: !post
+                    })}
+                />
+                {post && (
+                    <div className='w-full mb-4'>
+                        <img src={appwriteService.getFilePreview(post.featuredImage)} alt={post.title} className='rounded-lg' />
+                    </div>
+                )}
+                <Select
+                    options={["active", "inactive"]}
+                    label="Status"
+                    className="mb-4"
+                    {...register("status", { required: true })}
+                />
+                <Button type='submit' bgColor={post ? "bg-green-500" : undefined} className='w-full'>
                     {post ? "Update" : "Submit"}
-                    </Button>
+                </Button>
             </div>
         </form>
     )

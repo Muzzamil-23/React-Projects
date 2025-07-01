@@ -24,7 +24,7 @@ const Home = () => {
                             <h1 className='text-2xl font-bold hover:text-gray-500'>
                                 No Posts Available, be the first to write a blog!
                             </h1>
-                            <button onClick={() => navigate("/add-posts")}>Add post</button>
+                            <button onClick={() => navigate("/add-post")}>Add post</button>
                         </div>
                     </div>
                 </Container>
