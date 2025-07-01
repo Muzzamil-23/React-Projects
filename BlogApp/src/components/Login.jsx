@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login as authLogin } from '../store/authSlice'
 import { Button, Input } from "./index"
-import authService from '../appwrite/auth'
+import service from '../appwrite/config'
 import { useForm } from "react-hook-form"
 import { useDispatch } from 'react-redux'
 import Logo from './Logo'
@@ -16,9 +16,11 @@ const Login = () => {
     const login = async (data) => {
         setError("")
         try {
-            const session = await authService.login(data)
+            const session = await service.login(data)
+            console.log(session);
+            
             if (session) {
-                const userData = await authService.getCurrentUser()
+                const userData = await service.getCurrentUser()
                 if (userData) dispatch(authLogin(userData));
                 navigate("/")
             }
@@ -41,7 +43,7 @@ const Login = () => {
                 <p className='mt-2 text-center text-base text-black/60'>
                     Don't have any account?<br />
                     <Link
-                        to="/singup"
+                        to="/signup"
                         className='font-medium text-primary transition-all duration-200 hover:underline'
                     >
                         Sign Up

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 
 const Header = () => {
-  const authStatus = useSelector(state => state.auth.status)
+  const authStatus = useSelector(state => state.status)
   const navigate = useNavigate()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -27,7 +27,7 @@ const Header = () => {
     },
     {
       name: "All Posts",
-      slug: "/posts",
+      slug: "/all-posts",
       active: authStatus,
     },
     {
