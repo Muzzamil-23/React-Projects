@@ -12,11 +12,11 @@ export class AuthService {
         this.account = new Account(this.client)
     }
 
-    async createAccount({email, password, name}) {
+    async createAccount({ email, password, name }) {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name)
-            if(userAccount) {
-                return this.login({email, password})
+            if (userAccount) {
+                return this.login({ email, password })
             } else return userAccount;
 
         } catch (error) {
@@ -24,7 +24,7 @@ export class AuthService {
         }
     }
 
-    async login({email, password}) {
+    async login({ email, password }) {
         try {
             return await this.account.createEmailPasswordSession(email, password)
         } catch (error) {
@@ -37,7 +37,12 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (error) {
+            if (error.code === 401 || error.type === 'general_unauthorized_scope') {
+                // User is not logged in - this is expected, don't log as error
+                return null;
+            }
             console.log("Appwrite service :: getCurrentUser :: error", error);
+            throw error
         }
         return null;
     }

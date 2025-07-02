@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Input, RTE, Select } from '../index'
 import appwriteService from "../../appwrite/config"
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const PostForm = ({ post }) => {
@@ -18,35 +18,83 @@ const PostForm = ({ post }) => {
     const navigate = useNavigate()
     const userData = useSelector(state => state.userData)
 
+    // const submit = async (data) => {
+    //     if (post) {
+    //         const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
+
+    //         if (file) {
+    //             appwriteService.deleteFile(post.featuredImage)
+    //         }
+
+    //         const dbPost = await appwriteService.updatePost(post.$id, { ...data, featuredImage: file ? file.$id : undefined })
+
+    //         if (dbPost) {
+    //             navigate(`/post/${dbPost.$id}`)
+    //         }
+    //     } else {
+    //         const file = await data.image[0] ? appwriteService.uploadFile(data.image[0]) : null
+
+    //         if (file) {
+    //             const fileID = file.$id
+    //             data.featuredImage = fileID
+    //             const dbPost = await appwriteService.createPost({
+    //                 ...data,
+    //                 userData: userData.$id
+
+    //             })
+
+    //             if (dbPost) {
+    //                 navigate(`/post/${dbPost.$id}`)
+    //             }
+    //         }
+    //     }
+    // }
+
     const submit = async (data) => {
-        if (post) {
-            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
+        try {
+            console.log("Form data:", data); // Debug log
+            
+            if (post) {
+                // UPDATE POST
+                const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
 
-            if (file) {
-                appwriteService.deleteFile(post.featuredImage)
-            }
+                if (file) {
+                    appwriteService.deleteFile(post.featuredImage)
+                }
 
-            const dbPost = await appwriteService.updatePost(post.$id, { ...data, featuredImage: file ? file.$id : undefined })
-
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`)
-            }
-        } else {
-            const file = await data.image[0] ? appwriteService.uploadFile(data.image[0]) : null
-
-            if (file) {
-                const fileID = file.$id
-                data.featuredImage = fileID
-                const dbPost = await appwriteService.createPost({
-                    ...data,
-                    userData: userData.$id
-
+                const dbPost = await appwriteService.updatePost(post.$id, { 
+                    ...data, 
+                    featuredImage: file ? file.$id : undefined 
                 })
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`)
                 }
+            } else {
+                // CREATE NEW POST
+                const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
+
+                if (file) {
+                    const fileID = file.$id
+                    data.featuredImage = fileID
+                    
+                    const dbPost = await appwriteService.createPost({
+                        ...data,
+                        userId: userData.$id // Fixed: Changed from userData to userId
+                    })
+
+                    if (dbPost) {
+                        navigate(`/post/${dbPost.$id}`)
+                    }
+                } else {
+                    // Handle case where no image is uploaded but form is submitted
+                    console.error("No image uploaded")
+                    alert("Please upload a featured image")
+                }
             }
+        } catch (error) {
+            console.error("Error submitting form:", error)
+            alert("Error submitting form: " + error.message)
         }
     }
 
@@ -63,7 +111,7 @@ const PostForm = ({ post }) => {
     }, [])
 
     useEffect(() => {
-        const subscription = watch((value, name) => {
+        const subscription = watch((value, {name}) => {
             if (name === 'title') setValue('slug', slugTransform(value.title, { shouldValidate: true }))
         })
 
@@ -85,16 +133,16 @@ const PostForm = ({ post }) => {
                     label="Slug :"
                     placeholder="Slug"
                     className="mb-4"
-                    // {...register("slug", { required: true })}
-                    // onInput={(e) => {
-                    //     setValue("slug", slugTransform(e.currentTarget.value), {shouldValidate: true})
-                    // }}
-                    {...register("slug", {
-                        required: true,
-                        onChange: (e) => {
-                            setValue("slug", slugTransform(e.target.value), { shouldValidate: true });
-                        }
-                    })}
+                    {...register("slug", { required: true })}
+                    onInput={(e) => {
+                        setValue("slug", slugTransform(e.currentTarget.value), {shouldValidate: true})
+                    }}
+                    // {...register("slug", {
+                    //     required: true,
+                    //     onChange: (e) => {
+                    //         setValue("slug", slugTransform(e.target.value), { shouldValidate: true });
+                    //     }
+                    // })}
                 />
                 <RTE label="Content : " name="content" control={control} defaultValue={getValues("content")} />
             </div>
