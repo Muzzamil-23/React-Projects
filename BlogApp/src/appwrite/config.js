@@ -1,5 +1,5 @@
 import conf from "../conf/conf";
-import { Client, ID, Databases, Storage, Query } from "appwrite";
+import { Client, ID, Databases, Storage, Query, Role, Permission } from "appwrite";
 
 
 export class Service {
@@ -101,7 +101,7 @@ export class Service {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
-                file
+                file,
             )
         } catch (error) {
             console.log("Appwrite service :: uploadFile :: error", error);
@@ -124,6 +124,13 @@ export class Service {
 
     getFilePreview(fileId) {
         return this.bucket.getFilePreview(
+            conf.appwriteBucketId,
+            fileId,
+        )
+    }
+
+    getFileView(fileId) {
+        return this.bucket.getFileView(
             conf.appwriteBucketId,
             fileId
         )

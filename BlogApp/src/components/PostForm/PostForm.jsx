@@ -26,7 +26,9 @@ const PostForm = ({ post }) => {
     //             appwriteService.deleteFile(post.featuredImage)
     //         }
 
-    //         const dbPost = await appwriteService.updatePost(post.$id, { ...data, featuredImage: file ? file.$id : undefined })
+    //         const dbPost = await appwriteService.updatePost(post.$id, {
+    //             ...data, featuredImage: file ? file.$id : undefined
+    //         })
 
     //         if (dbPost) {
     //             navigate(`/post/${dbPost.$id}`)
@@ -53,7 +55,7 @@ const PostForm = ({ post }) => {
     const submit = async (data) => {
         try {
             console.log("Form data:", data); // Debug log
-            
+
             if (post) {
                 // UPDATE POST
                 const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null
@@ -62,9 +64,9 @@ const PostForm = ({ post }) => {
                     appwriteService.deleteFile(post.featuredImage)
                 }
 
-                const dbPost = await appwriteService.updatePost(post.$id, { 
-                    ...data, 
-                    featuredImage: file ? file.$id : undefined 
+                const dbPost = await appwriteService.updatePost(post.$id, {
+                    ...data,
+                    featuredImage: file ? file.$id : undefined
                 })
 
                 if (dbPost) {
@@ -77,7 +79,7 @@ const PostForm = ({ post }) => {
                 if (file) {
                     const fileID = file.$id
                     data.featuredImage = fileID
-                    
+
                     const dbPost = await appwriteService.createPost({
                         ...data,
                         userId: userData.$id // Fixed: Changed from userData to userId
@@ -111,7 +113,7 @@ const PostForm = ({ post }) => {
     }, [])
 
     useEffect(() => {
-        const subscription = watch((value, {name}) => {
+        const subscription = watch((value, { name }) => {
             if (name === 'title') setValue('slug', slugTransform(value.title, { shouldValidate: true }))
         })
 
@@ -135,14 +137,14 @@ const PostForm = ({ post }) => {
                     className="mb-4"
                     {...register("slug", { required: true })}
                     onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), {shouldValidate: true})
+                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true })
                     }}
-                    // {...register("slug", {
-                    //     required: true,
-                    //     onChange: (e) => {
-                    //         setValue("slug", slugTransform(e.target.value), { shouldValidate: true });
-                    //     }
-                    // })}
+                // {...register("slug", {
+                //     required: true,
+                //     onChange: (e) => {
+                //         setValue("slug", slugTransform(e.target.value), { shouldValidate: true });
+                //     }
+                // })}
                 />
                 <RTE label="Content : " name="content" control={control} defaultValue={getValues("content")} />
             </div>
@@ -156,11 +158,28 @@ const PostForm = ({ post }) => {
                         required: !post
                     })}
                 />
-                {post && (
+                {post?.featuredImage && (
                     <div className='w-full mb-4'>
-                        <img src={appwriteService.getFilePreview(post.featuredImage)} alt={post.title} className='rounded-lg' />
+                        <img src={appwriteService.getFileView(post.featuredImage)} alt={post.title} className='rounded-lg' />
                     </div>
                 )}
+
+                {/* {post && (
+                    <div className='w-full mb-4'>
+                        <img
+                            src={appwriteService.getFileView(post.featuredImage)?.href}
+                            alt={post.title}
+                            className='rounded-lg'
+                            onError={(e) => {
+                                console.log("Image load error:", e);
+                                e.target.style.display = 'none';
+                            }}
+                        />
+                    </div>
+                )} */}
+
+
+
                 <Select
                     options={["active", "inactive"]}
                     label="Status"

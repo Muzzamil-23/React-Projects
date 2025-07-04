@@ -13,6 +13,7 @@ const EditPost = () => {
             service.getPost(slug).then((post) => {
                 if(post) {
                     setPost(post)
+                    
                 } else {
                     navigate('/')
                 }
